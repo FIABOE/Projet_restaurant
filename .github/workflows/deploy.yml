@@ -52,7 +52,7 @@ jobs:
       - name: Vérifier CSS
         run: |
           echo "Validation CSS de style.css..."
-          stylelint style.css --config='{"extends":"stylelint-config-recommended"}' || exit 1
+          stylelint style.css || exit 1
           echo " CSS valide"
 
       # Valider le JavaScript avec ESLint
