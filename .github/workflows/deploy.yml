@@ -1,0 +1,95 @@
+name: Déploiement site restaurant
+
+on:
+  push:              # toutes les branches — erreurs détectées immédiatement
+  pull_request:
+    branches:
+      - main         # coche verte / croix rouge visible sur chaque PR
+
+jobs:
+  # ─── Job 1 : Validation ───────────────────────────────────────────
+  validation:
+    name: Vérification des fichiers
+    runs-on: ubuntu-latest
+
+    steps:
+      # Récupérer le code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Vérifier les fichiers essentiels
+      - name: Vérifier fichiers essentiels
+        run: |
+          echo "Vérification des fichiers principaux..."
+          if [ ! -f "./index.html" ]; then
+            echo " Erreur : index.html manquant !"
+            exit 1
+          fi
+          if [ ! -f "./style.css" ]; then
+            echo " Erreur : style.css manquant !"
+            exit 1
+          fi
+          if [ ! -f "./script.js" ]; then
+            echo " Erreur : script.js manquant !"
+            exit 1
+          fi
+          echo " Tous les fichiers essentiels sont présents"
+
+      # Valider le HTML
+      - name: Installer HTML Validator
+        run: npm install -g html-validator-cli
+
+      - name: Vérifier HTML
+        run: |
+          echo "Validation HTML de index.html..."
+          html-validator --file=index.html --verbose || exit 1
+          echo " HTML valide"
+
+      # Valider le CSS (config souple — erreurs réelles uniquement)
+      - name: Installer Stylelint
+        run: npm install -g stylelint stylelint-config-recommended
+
+      - name: Vérifier CSS
+        run: |
+          echo "Validation CSS de style.css..."
+          stylelint style.css --config='{"extends":"stylelint-config-recommended"}' || exit 1
+          echo " CSS valide"
+
+      # Valider le JavaScript avec ESLint
+      - name: Installer ESLint
+        run: npm install -g eslint
+
+      - name: Vérifier JavaScript
+        run: |
+          echo "Validation JS de script.js..."
+          eslint script.js --no-eslintrc --env browser,es2021 --rule '{"no-undef":"warn","no-unused-vars":"warn"}' || exit 1
+          echo " JavaScript valide"
+
+  # ─── Job 2 : Déploiement ─────────────────────────────────────────
+  deploy:
+    name: Déploiement sur GitHub Pages
+    runs-on: ubuntu-latest
+    needs: validation                       # attend que la validation réussisse
+    if: github.ref == 'refs/heads/main'     # déploie UNIQUEMENT sur main
+
+    permissions:
+      contents: write
+
+    steps:
+      # Récupérer le code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Déployer
+      - name: Déployer sur GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          commit_message: " Deploy ${{ github.sha }}"
+
+      # 8️⃣ Confirmation
+      - name: Confirmation du déploiement
+        run: |
+          echo " Déploiement réussi !"
+          echo "🌍 https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"

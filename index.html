@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Le Jardin d'Auguste — Restaurant Gastronomique</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="logo-le">Le</span>
+        <span class="logo-main">Jardin d'Auguste</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">Notre Histoire</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#reservation">Réservation</a></li>
+      </ul>
+      <a href="#reservation" class="btn-resa">Réserver une table</a>
+      <button class="burger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#menu" onclick="toggleMenu()">Menu</a>
+      <a href="#about" onclick="toggleMenu()">Notre Histoire</a>
+      <a href="#galerie" onclick="toggleMenu()">Galerie</a>
+      <a href="#reservation" onclick="toggleMenu()">Réservation</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-img" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80')"></div>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-tag">Restaurant Gastronomique · Paris 6ème</p>
+      <h1 class="hero-title">
+        L'art de la <em>table</em><br/>
+        à la française
+      </h1>
+      <p class="hero-sub">Une cuisine du terroir réinventée, des saveurs d'exception,<br/>dans un écrin de verdure au cœur de Paris.</p>
+      <div class="hero-actions">
+        <a href="#reservation" class="btn-gold">Réserver ce soir</a>
+        <a href="#menu" class="btn-outline">Découvrir le menu</a>
+      </div>
+      <div class="hero-infos">
+        <div class="info-item">
+          <span class="info-label">Ouverture</span>
+          <span class="info-val">Mar — Dim · 12h–23h</span>
+        </div>
+        <div class="info-sep">·</div>
+        <div class="info-item">
+          <span class="info-label">Téléphone</span>
+          <span class="info-val">01 42 86 11 39</span>
+        </div>
+        <div class="info-sep">·</div>
+        <div class="info-item">
+          <span class="info-label">Adresse</span>
+          <span class="info-val">12 rue de Buci, Paris</span>
+        </div>
+      </div>
+    </div>
+    <a href="#menu" class="scroll-hint">
+      <span>Découvrir</span>
+      <div class="scroll-arrow"></div>
+    </a>
+  </section>
+
+  <!-- BANDEAU DISTINCTIONS -->
+  <div class="distinctions">
+    <div class="dist-item"><span class="dist-icon">★</span> Guide Michelin 2024</div>
+    <div class="dist-sep">—</div>
+    <div class="dist-item"><span class="dist-icon">◆</span> Meilleur restaurant de Paris — Le Fooding</div>
+    <div class="dist-sep">—</div>
+    <div class="dist-item"><span class="dist-icon">★</span> 4,9 / 5 · 1 200+ avis</div>
+  </div>
+
+  <!-- MENU -->
+  <section class="menu-section" id="menu">
+    <div class="section-header">
+      <p class="section-eyebrow">Notre Carte</p>
+      <h2 class="section-title">Des plats pensés<br/><em>avec passion</em></h2>
+      <p class="section-sub">Une sélection de saison qui évolue chaque mois selon les arrivages du marché.</p>
+    </div>
+
+    <div class="menu-tabs">
+      <button class="tab active" onclick="switchTab('entrees')">Entrées</button>
+      <button class="tab" onclick="switchTab('plats')">Plats</button>
+      <button class="tab" onclick="switchTab('desserts')">Desserts</button>
+      <button class="tab" onclick="switchTab('vins')">Vins</button>
+    </div>
+
+    <div class="menu-grid" id="menuContent"></div>
+
+    <div class="menu-note">
+      <p>☆ Menus dégustation disponibles — 5 plats (85€) · 7 plats (120€) · Accords mets et vins sur demande</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-img-wrap">
+      <img src="https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=800&q=80" alt="Chef Auguste" class="about-img" loading="lazy"/>
+      <div class="about-badge">
+        <span class="badge-num">18</span>
+        <span class="badge-text">ans<br/>d'expérience</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-eyebrow">Notre Histoire</p>
+      <h2 class="section-title">Le Chef <em>Auguste Renard</em></h2>
+      <p>Formé aux côtés des plus grands, Auguste Renard a ouvert son restaurant en 2006 avec une conviction : que la grande cuisine française pouvait être généreuse, accessible, et profondément humaine.</p>
+      <p>Chaque assiette est une histoire. Une histoire de saison, de producteurs locaux, de techniques maîtrisées et de liberté créative. Ici, on cuisine avec les mains et avec le cœur.</p>
+      <div class="about-values">
+        <div class="value-item">
+          <span class="value-icon">🌿</span>
+          <div>
+            <strong>Produits locaux</strong>
+            <p>Filières courtes, maraîchers de l'Île-de-France</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <span class="value-icon">🍷</span>
+          <div>
+            <strong>Cave d'exception</strong>
+            <p>Plus de 300 références, naturels et biodynamiques</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <span class="value-icon">👨‍🍳</span>
+          <div>
+            <strong>Cuisine ouverte</strong>
+            <p>Le chef cuisine devant vous, chaque soir</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="galerie" id="galerie">
+    <div class="section-header">
+      <p class="section-eyebrow">Galerie</p>
+      <h2 class="section-title">L'ambiance du <em>Jardin</em></h2>
+    </div>
+    <div class="galerie-grid">
+      <div class="gal-item gal-large">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&q=80" alt="Salle du restaurant" loading="lazy"/>
+      </div>
+      <div class="gal-item">
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80" alt="Plat signature" loading="lazy"/>
+      </div>
+      <div class="gal-item">
+        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&q=80" alt="Dessert" loading="lazy"/>
+      </div>
+      <div class="gal-item">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Table dressée" loading="lazy"/>
+      </div>
+      <div class="gal-item">
+        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80" alt="Vin" loading="lazy"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMOIGNAGES -->
+  <section class="temoignages">
+    <div class="section-header">
+      <p class="section-eyebrow">Avis Clients</p>
+      <h2 class="section-title">Ce qu'ils en <em>disent</em></h2>
+    </div>
+    <div class="temo-grid">
+      <div class="temo-card">
+        <div class="temo-stars">★★★★★</div>
+        <p>« Une expérience inoubliable. Le carpaccio de Saint-Jacques était d'une délicatesse absolue, et le service d'une générosité rare. On reviendra sans hésiter. »</p>
+        <div class="temo-author">
+          <div class="temo-avatar">ML</div>
+          <div>
+            <strong>Marie-Laure D.</strong>
+            <span>Paris, octobre 2024</span>
+          </div>
+        </div>
+      </div>
+      <div class="temo-card temo-featured">
+        <div class="temo-stars">★★★★★</div>
+        <p>« Le menu dégustation 7 plats est un voyage gastronomique complet. Chaque plat raconte quelque chose. Auguste est un vrai artiste. »</p>
+        <div class="temo-author">
+          <div class="temo-avatar">JP</div>
+          <div>
+            <strong>Jean-Pierre M.</strong>
+            <span>Lyon, septembre 2024</span>
+          </div>
+        </div>
+      </div>
+      <div class="temo-card">
+        <div class="temo-stars">★★★★★</div>
+        <p>« Cadre magnifique, cuisine sublime, cave à vins remarquable. L'un des meilleurs restaurants où j'ai eu la chance de dîner à Paris. »</p>
+        <div class="temo-author">
+          <div class="temo-avatar">SC</div>
+          <div>
+            <strong>Sophie C.</strong>
+            <span>Bordeaux, novembre 2024</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVATION -->
+  <section class="reservation" id="reservation">
+    <div class="resa-content">
+      <div class="resa-info">
+        <p class="section-eyebrow">Réservation</p>
+        <h2 class="section-title">Réservez<br/>votre <em>table</em></h2>
+        <p>Pour les groupes de plus de 8 personnes ou les événements privés, contactez-nous directement.</p>
+        <div class="resa-contact">
+          <div class="contact-row">
+            <span>📞</span>
+            <div>
+              <strong>Téléphone</strong>
+              <a href="tel:+33142861139">01 42 86 11 39</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <span>✉️</span>
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:contact@jardindauguste.fr">contact@jardindauguste.fr</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <span>📍</span>
+            <div>
+              <strong>Adresse</strong>
+              <span>12 rue de Buci, 75006 Paris</span>
+            </div>
+          </div>
+          <div class="contact-row">
+            <span>🕐</span>
+            <div>
+              <strong>Horaires</strong>
+              <span>Mar–Dim · Déj 12h–14h30 · Dîner 19h–23h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form class="resa-form" onsubmit="handleResa(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Prénom & Nom</label>
+            <input type="text" placeholder="Auguste Renard" required/>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="vous@email.com" required/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Téléphone</label>
+            <input type="tel" placeholder="06 12 34 56 78" required/>
+          </div>
+          <div class="form-group">
+            <label>Nombre de convives</label>
+            <select required>
+              <option value="">Choisir...</option>
+              <option>1 personne</option>
+              <option>2 personnes</option>
+              <option>3 personnes</option>
+              <option>4 personnes</option>
+              <option>5–6 personnes</option>
+              <option>7–8 personnes</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date souhaitée</label>
+            <input type="date" required/>
+          </div>
+          <div class="form-group">
+            <label>Service</label>
+            <select required>
+              <option value="">Choisir...</option>
+              <option>Déjeuner (12h–14h30)</option>
+              <option>Dîner (19h–23h)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Occasion spéciale (optionnel)</label>
+          <textarea placeholder="Anniversaire, demande en mariage, allergies alimentaires..." rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn-gold">Confirmer la réservation</button>
+        <div class="resa-success" id="resaSuccess">
+          ✓ Votre demande a bien été envoyée ! Nous vous confirmons par email sous 24h.
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">Le Jardin d'Auguste</div>
+        <p>Une cuisine du terroir réinventée,<br/>au cœur du 6ème arrondissement.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="#menu">Notre Menu</a>
+        <a href="#about">Notre Histoire</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#reservation">Réservation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Nous trouver</h4>
+        <p>12 rue de Buci<br/>75006 Paris</p>
+        <p>Mardi – Dimanche<br/>12h00 – 23h00</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+33142861139">01 42 86 11 39</a>
+        <a href="mailto:contact@jardindauguste.fr">contact@jardindauguste.fr</a>
+        <div class="social-links">
+          <a href="#" class="social">Instagram</a>
+          <a href="#" class="social">Facebook</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Le Jardin d'Auguste · Tous droits réservés</p>
+      <div class="footer-legal">
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
