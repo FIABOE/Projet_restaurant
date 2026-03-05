@@ -57,7 +57,7 @@ jobs:
 
       # Valider le JavaScript avec ESLint
       - name: Installer ESLint
-        run: npm install -g eslint
+        run: npm install -g eslint@8
 
       - name: Vérifier JavaScript
         run: |
