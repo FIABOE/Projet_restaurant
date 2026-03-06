@@ -1,23 +1,23 @@
-name: Déploiement site restaurant
+name: Déploiement site restaurant  
 
 on:
-  push:              # toutes les branches — erreurs détectées immédiatement
+  push:             
   pull_request:
     branches:
-      - main         # coche verte / croix rouge visible sur chaque PR
+      - main        
 
 jobs:
-  # ─── Job 1 : Validation ───────────────────────────────────────────
+  # Job 1 : Validation des fichiers
   validation:
-    name: Vérification des fichiers
-    runs-on: ubuntu-latest
+    name: Vérification des fichiers  
+    runs-on: ubuntu-latest          
 
     steps:
-      # Récupérer le code
+      # Récupérer le code du dépôt
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Vérifier les fichiers essentiels
+      # Vérifier la présence des fichiers essentiels
       - name: Vérifier fichiers essentiels
         run: |
           echo "Vérification des fichiers principaux..."
@@ -35,61 +35,64 @@ jobs:
           fi
           echo " Tous les fichiers essentiels sont présents"
 
-      # Valider le HTML
+      # Installer HTML Validator
       - name: Installer HTML Validator
         run: npm install -g html-validator-cli
 
+      # Vérifier le HTML du site
       - name: Vérifier HTML
         run: |
           echo "Validation HTML de index.html..."
           html-validator --file=index.html --verbose || exit 1
           echo " HTML valide"
 
-      # Valider le CSS (config souple — erreurs réelles uniquement)
+      # Installer Stylelint pour CSS
       - name: Installer Stylelint
         run: npm install -g stylelint stylelint-config-recommended
 
+      # Vérifier le CSS du site
       - name: Vérifier CSS
         run: |
           echo "Validation CSS de style.css..."
           stylelint style.css || exit 1
           echo " CSS valide"
 
-      # Valider le JavaScript avec ESLint
+      # Installer ESLint pour JS
       - name: Installer ESLint
         run: npm install -g eslint@8
 
+      # Vérifier le JavaScript du site
       - name: Vérifier JavaScript
         run: |
           echo "Validation JS de script.js..."
           eslint script.js --no-eslintrc --env browser,es2021 --rule '{"no-undef":"warn","no-unused-vars":"warn"}' || exit 1
           echo " JavaScript valide"
 
-  # ─── Job 2 : Déploiement ─────────────────────────────────────────
+  # Job 2 : Déploiement sur GitHub Pages
   deploy:
-    name: Déploiement sur GitHub Pages
-    runs-on: ubuntu-latest
-    needs: validation                       # attend que la validation réussisse
-    if: github.ref == 'refs/heads/main'     # déploie UNIQUEMENT sur main
+    name: Déploiement sur GitHub Pages       
+    runs-on: ubuntu-latest                  
+    needs: validation                       
+    if: github.ref == 'refs/heads/main'     # Déploie uniquement sur la branche main
 
     permissions:
-      contents: write
+      contents: write                       # Permission pour écrire dans le repo
 
     steps:
-      # Récupérer le code
+      # Récupérer le code du dépôt
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Déployer
+      # Déployer sur GitHub Pages
       - name: Déployer sur GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
-          commit_message: " Deploy ${{ github.sha }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Token pour autoriser le push
+          publish_dir: ./                           # Dossier à publier
+          commit_message: " Deploy ${{ github.sha }}" # Message de commit automatique
 
-      # 8️⃣ Confirmation
+      # Confirmation du déploiement
       - name: Confirmation du déploiement
         run: |
           echo " Déploiement réussi !"
-          echo "🌍 https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          echo "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
